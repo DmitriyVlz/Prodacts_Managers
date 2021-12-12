@@ -1,8 +1,15 @@
 package ru.netology.repository;
 import ru.netology.domain.Product;
+import ru.netology.domain.Book;
+import ru.netology.domain.Smartphone;
 
-public class ProductRepository  {
-    private Product[] items = new Product[0];
+public class ProductRepository {
+    Product[] items = {
+            new Book(1, "Harry Potter", 100, "J.K.Rowling"),
+            new Book(2, "The Colour of Magic", 200, "Terry Pratchett"),
+            new Smartphone(3, "3310", 500, "Nokia"),
+            new Smartphone(4, "Galaxy S10", 1000, "Samasung")
+    };
 
     public void save(Product item) {
         int length = items.length + 1;
@@ -13,10 +20,22 @@ public class ProductRepository  {
         items = tmp;
     }
 
-    public  Product[] findAll() {
+    public  Product[] findAll(){
         return items;
     }
 
+    public void removeById(int id) {
+        int length = items.length - 1;
+        Product[] tmp = new Product[length];
+        int index = 0;
+        for (Product item : items) {
+            if (item.getId() != id) {
+                tmp[index] = item;
+                index++;
+            }
+        }
+        items = tmp;
+    }
 
     public Product findById(int id) {
         for (Product item : items) {
